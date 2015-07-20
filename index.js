@@ -10,7 +10,7 @@ var FFT_SIZE = 1024;
 
 loader.loadMp3ToFloatArray("hold_you_tight.mp3").then(
     function (data) {
-        //        var energies = fftFloatArray(data);      
+        var energies = fftFloatArray(data);      
 
         console.log("loaded " + data.length);
         console.log(data[0] + " -->> " + data[data.length - 1]);
@@ -23,7 +23,7 @@ loader.loadMp3ToFloatArray("hold_you_tight.mp3").then(
               ]
         };
         outputter.output(audioData, "test.wav");
-console.log('fin');
+
     }
 );
 
