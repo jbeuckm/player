@@ -24,17 +24,31 @@ function processLoadedAudioArray(data) {
     console.log("loaded " + data.length);
     console.log(data[0] + " -->> " + data[data.length - 1]);
     
+    builder.startBuilding(FRAME_SIZE, FRAME_INTERVAL);
+    
     var numFrames = Math.floor(data.length / FRAME_INTERVAL);
+    console.log("numFrames = "+numFrames);
+    
     for (var i=0; i<numFrames; i++) {
-        var frameData = data.slice(i*FRAME_INTERVAL, i*FRAME_INTERVAL + FRAME_SIZE);
+        
+        var frameData = new Float32Array(FRAME_SIZE);
+        var pos = i * FRAME_INTERVAL;
+        for (var j=0; j<FRAME_SIZE; j++) {
+            frameData[j] = data[pos++];
+        }
+
         var spectrum = fftFloatArray(frameData);
+        
+        builder.buildWithSpectrum(spectrum);
     }
 
+    var rebuilt = builder.finishBuilding();
+    
     var audioData = {
         sampleRate: 44100,
         channelData: [
-            data,
-            data,
+            rebuilt,
+            rebuilt,
           ]
     };
 
