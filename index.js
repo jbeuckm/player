@@ -18,12 +18,12 @@ loader.loadMp3ToFloatArray("hold_you_tight.mp3").then(
         var audioData = {
             sampleRate: 44100,
             channelData: [
-    new data,
-    new data,
-  ]
+                data,
+                data,
+              ]
         };
         outputter.output(audioData, "test.wav");
-
+console.log('fin');
     }
 );
 
