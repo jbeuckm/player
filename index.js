@@ -6,8 +6,8 @@ var builder = require('./lib/audio_builder.js');
 var outputter = require('./lib/outputter.js');
 
 
-var FRAME_SIZE = 1024;
-var FRAME_INTERVAL = 512;
+var FRAME_SIZE = 512;
+var FRAME_INTERVAL = 256;
 
 
 loader.loadMp3ToFloatArray("hold_you_tight.mp3").then(
@@ -44,11 +44,17 @@ function processLoadedAudioArray(data) {
 
     var rebuilt = builder.finishBuilding();
     
+    for (var i=0; i<1024; i+=4) {
+        console.log(rebuilt[i]);
+    }
+    
+    var outArray = new Float32Array(rebuilt);
+    
     var audioData = {
         sampleRate: 44100,
         channelData: [
-            rebuilt,
-            rebuilt,
+            outArray,
+            outArray,
           ]
     };
 
